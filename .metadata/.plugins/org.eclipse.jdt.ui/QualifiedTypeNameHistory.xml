@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="adt.queue.Queue"/>
+    <fullyQualifiedTypeName name="adt.queue.QueueOverflowException"/>
+    <fullyQualifiedTypeName name="adt.queue.QueueImpl"/>
+    <fullyQualifiedTypeName name="adt.queue.QueueUnderflowException"/>
+    <fullyQualifiedTypeName name="adt.queue.CircularQueue"/>
+    <fullyQualifiedTypeName name="java.util.concurrent.ExecutionException"/>
+    <fullyQualifiedTypeName name="adt.linkedList.DoubleLinkedListNode"/>
+    <fullyQualifiedTypeName name="adt.stack.StackOverflowException"/>
+    <fullyQualifiedTypeName name="adt.stack.StackUnderflowException"/>
+    <fullyQualifiedTypeName name="adt.stack.StackRecursiveDoubleLinkedListImpl"/>
+    <fullyQualifiedTypeName name="adt.linkedList.RecursiveDoubleLinkedListImpl"/>
+    <fullyQualifiedTypeName name="adt.linkedList.RecursiveSingleLinkedListImpl"/>
+    <fullyQualifiedTypeName name="adt.linkedList.SingleLinkedListNode"/>
+    <fullyQualifiedTypeName name="adt.linkedList.SingleLinkedListImpl"/>
+    <fullyQualifiedTypeName name="adt.linkedList.DoubleLinkedListImpl"/>
+    <fullyQualifiedTypeName name="adt.linkedList.batch.BatchLinkedListImpl"/>
+    <fullyQualifiedTypeName name="BSTNodeBusca"/>
+    <fullyQualifiedTypeName name="java.util.Deque"/>
+    <fullyQualifiedTypeName name="java.util.Scanner"/>
+    <fullyQualifiedTypeName name="java.util.Arrays"/>
+    <fullyQualifiedTypeName name="org.w3c.dom.Node"/>
+    <fullyQualifiedTypeName name="java.lang.Comparable"/>
+    <fullyQualifiedTypeName name="bst.NodeBST"/>
+    <fullyQualifiedTypeName name="adt.bst.BSTNode"/>
+    <fullyQualifiedTypeName name="adt.bst.BSTNode.Builder"/>
+    <fullyQualifiedTypeName name="adt.rbtree.RBNode"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="adt.rbtree.RBNode.Colour"/>
+    <fullyQualifiedTypeName name="adt.bt.Util"/>
+    <fullyQualifiedTypeName name="adt.btree.BNode"/>
+    <fullyQualifiedTypeName name="adt.btree.BNodePosition"/>
+    <fullyQualifiedTypeName name="java.util.LinkedList"/>
+</qualifiedTypeNameHistroy>

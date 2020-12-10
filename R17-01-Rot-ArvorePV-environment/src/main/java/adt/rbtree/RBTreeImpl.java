@@ -1,0 +1,250 @@
+package adt.rbtree;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import adt.bst.BSTImpl;
+import adt.bt.Util;
+import adt.rbtree.RBNode.Colour;
+
+public class RBTreeImpl<T extends Comparable<T>> extends BSTImpl<T>
+		implements RBTree<T> {
+
+	public RBTreeImpl() {
+		this.root = new RBNode<T>();
+	}
+
+	protected int blackHeight() {
+		if (!isEmpty()) {
+			return blackHeightLeft((RBNode<T>) root);
+		} else {
+			return -1;
+		}
+	}
+
+	protected int blackHeightLeft(RBNode<T> node) {						// Left side of the tree
+		int result;
+		if (node.isEmpty()) {
+			result = 0;
+		} else if (node.getColour().equals(Colour.RED)) {				// Colour equals red
+			result = blackHeightLeft((RBNode<T>) node.getRight());	
+		} else {														// Colour is Black result++
+			result = 1 + blackHeightLeft((RBNode<T>) node.getRight()); 
+		}
+		return result;
+	}
+	
+	protected int blackHeightRight(RBNode<T> node) {					// Right side of the tree
+		int result;
+		if (node.isEmpty()) {
+			result = 0;
+		} else if (node.getColour().equals(Colour.RED)) {				// Colour is RED
+			result = blackHeightRight((RBNode<T>) node.getRight());
+		} else {														// Colour is BLACK result ++
+			result = 1 + blackHeightRight((RBNode<T>) node.getRight()); 
+		}
+		return result;
+	}
+
+	protected boolean verifyProperties() {
+		boolean resp = verifyNodesColour() && verifyNILNodeColour()
+				&& verifyRootColour() && verifyChildrenOfRedNodes()
+				&& verifyBlackHeight();
+
+		return resp;
+	}
+
+	/**
+	 * The colour of each node of a RB tree is black or red. This is guaranteed
+	 * by the type Colour.
+	 */
+	private boolean verifyNodesColour() {
+		return true; // already implemented
+	}
+
+	/**
+	 * The colour of the root must be black.
+	 */
+	private boolean verifyRootColour() {
+		return ((RBNode<T>) root).getColour() == Colour.BLACK; // already
+																// implemented
+	}
+
+	/**
+	 * This is guaranteed by the constructor.
+	 */
+	private boolean verifyNILNodeColour() {
+		return true; // already implemented
+	}
+
+	/**
+	 * Verifies the property for all RED nodes: the children of a red node must
+	 * be BLACK.
+	 */
+	private boolean verifyChildrenOfRedNodes() {
+		if (verifyChildrenOfRedNodes((RBNode<T>) root)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private boolean verifyChildrenOfRedNodes(RBNode<T> node) {
+		if (!node.isEmpty()) {
+			if (node.getColour().equals(Colour.RED)) {
+				if (((RBNode<T>) node.getLeft()).getColour().equals(Colour.RED) 
+						|| ((RBNode<T>) node.getRight()).equals(Colour.RED)) {		// if both sides of the tree is RED
+					return false;
+				}
+			}
+			return verifyChildrenOfRedNodes((RBNode<T>) node.getLeft())
+					&& verifyChildrenOfRedNodes((RBNode<T>) node.getRight());
+		}
+		return true;																// Tree is empty
+	}
+
+	/**
+	 * Verifies the black-height property from the root.
+	 */
+	private boolean verifyBlackHeight() {
+		if (verifyBlackHeight((RBNode<T>) root)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	protected boolean verifyBlackHeight(RBNode<T> node) {
+		boolean result;
+		if (node.isEmpty()) {
+			result = true;
+		} else if (blackHeightLeft(node) != blackHeightRight(node)) {
+			result = false;
+		} else {
+			result = verifyBlackHeight((RBNode<T>) node.getLeft()) && verifyBlackHeight((RBNode<T>) node.getRight());
+		}
+		return result;
+	}
+
+	@Override
+	public void insert(T value) {
+		insert((RBNode<T>) root, value);
+	}
+	
+	protected void insert(RBNode<T> node, T value) {
+		if (node.isEmpty()) {
+			node.setData(value);
+			node.setLeft(new RBNode<T>());
+			node.setRight(new RBNode<T>());
+			
+			node.getLeft().setParent(node);
+			node.getRight().setParent(node);
+			
+			node.setColour(Colour.RED);
+			fixUpCase1(node);
+		} else {
+			if (value.compareTo(node.getData()) > 0) {
+				insert((RBNode<T>) node.getRight(), value);
+			} else if (value.compareTo(node.getData()) < 0) {
+				insert((RBNode<T>) node.getLeft(), value);
+			}
+		}
+	}
+
+	@Override
+	public RBNode<T>[] rbPreOrder() {
+		@SuppressWarnings("unchecked")
+		RBNode<T>[] arrayResult = new RBNode[this.size()];
+		List<RBNode<T>> aux = new ArrayList<RBNode<T>>();
+		
+		rbPreOrder((RBNode<T>) this.root, aux);
+		
+		for (int i = 0; i < aux.size(); i++) {
+			arrayResult[i] = aux.get(i);
+		}
+		
+		return arrayResult;
+	}
+
+	private void rbPreOrder(RBNode<T> node, List<RBNode<T>> array) {
+		if (!node.isEmpty()) {
+			array.add(node);
+			rbPreOrder((RBNode<T>) node.getLeft(), array);
+			rbPreOrder((RBNode<T>) node.getRight(), array);
+		}
+	}
+
+	// FIXUP methods
+	protected void fixUpCase1(RBNode<T> node) {
+		if (node.equals((RBNode<T>) root)) {
+			node.setColour(Colour.BLACK);
+		} else {
+			this.fixUpCase2(node);
+		}
+	}
+
+	protected void fixUpCase2(RBNode<T> node) {
+		if (((RBNode<T>) node.getParent()).getColour().equals(Colour.RED)) {
+			this.fixUpCase3(node);
+		}
+	}
+
+	protected void fixUpCase3(RBNode<T> node) {
+		RBNode<T> uncle = this.uncle(node);
+		RBNode<T> parent = (RBNode<T>) node.getParent();
+		RBNode<T> grandFather = (RBNode<T>) parent.getParent();
+		
+		if (uncle.getColour().equals(Colour.RED)) {
+			uncle.setColour(Colour.BLACK);
+			parent.setColour(Colour.BLACK);
+			grandFather.setColour(Colour.RED);
+			this.fixUpCase1(grandFather);
+		} else {
+			this.fixUpCase4(node);
+		}
+	}
+	
+	protected void fixUpCase4(RBNode<T> node) {
+		RBNode<T> next = (RBNode<T>) node;
+		RBNode<T> parent = (RBNode<T>) node.getParent();
+		
+		if (isRightChild(node) && !isRightChild(parent)) {
+			Util.leftRotation(parent);
+			next = (RBNode<T>) next.getLeft();
+		} else if (!isRightChild(node) && isRightChild(parent)) {
+			Util.rightRotation(parent);
+			next = (RBNode<T>) next.getRight();
+		}
+		this.fixUpCase5(next);
+	}
+
+	protected void fixUpCase5(RBNode<T> node) {
+		RBNode<T> parent = (RBNode<T>) node.getParent();
+		RBNode<T> grandFather = (RBNode<T>) parent.getParent();
+		
+		parent.setColour(Colour.BLACK);
+		grandFather.setColour(Colour.RED);
+		
+		if (!isRightChild(node)) {
+			Util.rightRotation(grandFather);
+		} else {
+			Util.leftRotation(grandFather);
+		}
+	}
+
+	private boolean isRightChild(RBNode<T> node) {
+		return node.getParent().getRight().equals(node);
+	}
+	
+	private RBNode<T> uncle(RBNode<T> node) {
+		RBNode<T> parent = (RBNode<T>) node.getParent();
+		RBNode<T> uncle;
+		
+		if (isRightChild(parent)) {								// Right child
+			uncle = (RBNode<T>) parent.getParent().getLeft();
+		} else {												// Left child
+			uncle = (RBNode<T>) parent.getParent().getRight();
+		}
+		return uncle;
+	}
+}

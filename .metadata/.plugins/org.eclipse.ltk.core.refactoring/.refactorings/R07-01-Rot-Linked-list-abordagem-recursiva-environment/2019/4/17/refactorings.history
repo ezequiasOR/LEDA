@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;recursiveSingleLinkedListImpl&apos; from expression &apos;((RecursiveSingleLinkedListImpl&lt;T&gt;)this.top)&apos;&#x0A;- Original project: &apos;R07-01-Rot-Linked-list-abordagem-recursiva-environment&apos;&#x0A;- Variable name: &apos;recursiveSingleLinkedListImpl&apos;&#x0A;- Destination method: &apos;adt.stack.StackRecursiveDoubleLinkedListImpl.top()&apos;&#x0A;- Variable expression: &apos;((RecursiveSingleLinkedListImpl&lt;T&gt;)this.top)&apos;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;recursiveSingleLinkedListImpl&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src\/main\/java&lt;adt.stack{StackRecursiveDoubleLinkedListImpl.java" name="recursiveSingleLinkedListImpl" replace="true" selection="1123 45" stamp="1556241144480" varType="false" version="1.0"/>
+</session>

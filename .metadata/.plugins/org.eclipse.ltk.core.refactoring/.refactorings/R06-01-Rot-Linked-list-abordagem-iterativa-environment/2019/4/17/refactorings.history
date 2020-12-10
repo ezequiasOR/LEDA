@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;head&apos; from expression &apos;(SingleLinkedListNode&lt;T&gt;)head()&apos;&#x0A;- Original project: &apos;R06-01-Rot-Linked-list-abordagem-iterativa-environment&apos;&#x0A;- Variable name: &apos;head&apos;&#x0A;- Destination method: &apos;adt.queue.QueueDoubleLinkedListImpl.dequeue()&apos;&#x0A;- Variable expression: &apos;(SingleLinkedListNode&lt;T&gt;)head()&apos;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;head&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src\/main\/java&lt;adt.queue{QueueDoubleLinkedListImpl.java" name="head" replace="true" selection="760 32" stamp="1555983133927" varType="false" version="1.0"/>
+</session>
